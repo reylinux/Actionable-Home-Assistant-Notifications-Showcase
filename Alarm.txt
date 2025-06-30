@@ -1,0 +1,16 @@
+actions:
+  - action: notify.[YOUR_ANDROID_DEVICE]
+    data:
+      message: >-
+        The security system has been triggered. Disarm immediately if this is a
+        false alarm
+      title: Alarm Tripped
+      data:
+        group: security
+        sticky: "true"
+        notification_icon: mdi:shield-outline
+        tag: alarm-tripped
+        actions:
+          - action: URI
+            title: Open Alarm Panel
+            uri: [YOUR_URL]

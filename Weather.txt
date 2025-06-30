@@ -1,0 +1,34 @@
+actions:
+  - data:
+      title: 🌋 Volcanic Activity Update - Taupo
+      message: >
+        Activity Level: {{ state_attr('sensor.volcano_taupo', 'activity') }}
+        Hazard: {{ state_attr('sensor.volcano_taupo', 'hazards') }} Distance: {{
+        state_attr('sensor.volcano_taupo', 'distance') }} km (as of {{
+        state_attr('sensor.volcano_taupo', 'feed_last_update') | as_datetime |
+        as_local }})
+      data:
+        notification_icon: mdi:image-filter-hdr
+        persistent: "yes"
+        sticky: "true"
+        actions:
+          - action: URI
+            title: Open Volcanic Status Panel
+            uri: /mobile-light/overview#volcano-warning
+    action: notify.[YOUR_ANDROID_DEVICE]
+  - data:
+      title: 🌋 Volcanic Activity Update - Taupo
+      message: >
+        Activity Level: {{ state_attr('sensor.volcano_taupo', 'activity') }}
+        Hazard: {{ state_attr('sensor.volcano_taupo', 'hazards') }} Distance: {{
+        state_attr('sensor.volcano_taupo', 'distance') }} km (as of {{
+        state_attr('sensor.volcano_taupo', 'feed_last_update') | as_datetime |
+        as_local }})
+      data:
+        persistent: "yes"
+        sticky: "true"
+      actions:
+        - action: URL
+          title: Open Volcanic Status Panel
+          uri: /mobile-light/overview#volcano-warning
+    action: notify.[YOUR_IOS_DEVICE]

@@ -1,0 +1,22 @@
+actions:
+  - action: notify.[YOUR_ANDROID_DEVICE]
+    metadata: {}
+    data:
+      title: Light Switch (DT) is Down
+      message: " "
+      data:
+        actions:
+          - action: TURN_BACK_ON_DT
+            title: Turn Back On
+  - wait_for_trigger:
+      - trigger: event
+        event_type: mobile_app_notification_action
+        event_data:
+          action: TURN_BACK_ON_DT
+    continue_on_timeout: false
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+        - switch.dining_table_light

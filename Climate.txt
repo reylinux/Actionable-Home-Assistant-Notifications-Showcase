@@ -1,0 +1,50 @@
+actions:
+  - data:
+      title: Multiple Guest Room High Temperature
+      message: >
+        Current: {{ states('sensor.multiple_guest_room_temperature') | float |
+        round(1) }}°C
+      data:
+        actions:
+          - action: TURN_ON_HEATPUMP_MGR
+            title: Turn On Cooling
+        group: climate
+        tag: climate-mgr-prompt
+        persistent: true
+        priority: high
+        notification_icon: mdi:heat-pump
+    action: notify.[YOUR_ANDROID_DEVICE]
+  - data:
+      title: Multiple Guest Room High Temperature
+      message: >
+        Current: {{ states('sensor.multiple_guest_room_temperature') | float |
+        round(1) }}°C
+      data:
+        actions:
+          - action: TURN_ON_HEATPUMP_MGR
+            title: Turn On Cooling
+        group: climate
+        tag: climate-mgr-prompt
+    action: notify.[YOUR_IOS_DEVICE]
+  - wait_for_trigger:
+      - event_type: mobile_app_notification_action
+        event_data:
+          action: TURN_ON_HEATPUMP_MGR
+        trigger: event
+    continue_on_timeout: false
+  - target:
+      entity_id: climate.heat_pump
+    data:
+      hvac_mode: cool
+    action: climate.set_hvac_mode
+  - target:
+      entity_id:
+        - climate.multiple_guest_room
+        - climate.heat_pump
+    action: climate.turn_on
+    data: {}
+  - target:
+      entity_id: climate.multiple_guest_room
+    data:
+      temperature: 21.5
+    action: climate.set_temperature
